@@ -39,7 +39,7 @@
     ]
   },
   "provider": {
-    "model": "SELECT_OPENAI_MODEL",
+    "model": "gpt-4o",
     "response_format": "json_schema"
   },
   "limits": {
