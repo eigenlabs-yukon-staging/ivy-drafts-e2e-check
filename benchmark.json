@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 2,
+  "name": "ivy-drafts-e2e-check",
+  "tracks": [
+    {
+      "name": "main",
+      "description": "End-to-end check of the Research challenge-drafts app: the llm-verifier shared-verifier computation example, created by Ivy through MCP and deployed with the web app Deploy button.",
+      "category": "math",
+      "mode": "pareto",
+      "promotionMode": "manual",
+      "direction": "+",
+      "objectives": [
+        {
+          "name": "checked_n",
+          "direction": "+"
+        }
+      ],
+      "paretoPolicies": {
+        "scoring": {
+          "version": "finite-prefix-v1"
+        },
+        "validity": {
+          "version": "scoped-claims-v1"
+        }
+      },
+      "editablePaths": [
+        "submission"
+      ],
+      "setupCommand": [
+        "llm-verifier",
+        "intake",
+        "--root",
+        ".",
+        "--out",
+        ".yukon/work/intake.json"
+      ],
+      "benchmarkCommand": [
+        "llm-verifier",
+        "finalize",
+        "--intake",
+        ".yukon/work/intake.json",
+        "--initial",
+        ".yukon/work/initial.json",
+        "--initial-review",
+        ".yukon/work/review.json",
+        "--score",
+        ".yukon/score.json",
+        "--dossier",
+        ".yukon/dossier.json",
+        "--followup",
+        ".yukon/work/followup.json",
+        "--final-review",
+        ".yukon/work/final-review.json"
+      ],
+      "scorePath": ".yukon/score.json",
+      "maxSubmissionBytes": 262144,
+      "runner": {
+        "provider": "github-actions",
+        "workflow": "benchmark.yml",
+        "scoreArtifactName": "benchmark-score",
+        "maxConcurrentWorkflows": 2
+      },
+      "submissionAdmission": {
+        "version": 1,
+        "submissionReferencesEnabled": false
+      }
+    }
+  ]
+}
